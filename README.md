@@ -8,7 +8,7 @@ Before installing the plugin, create a new page with a slug `dr-media-news`
 Install and activate the plugin
 
 ## Usage 
-To display the blog, enter shortcode
+To display the news list, enter shortcode
 ```
 [ech_dr_media_news]
 ```

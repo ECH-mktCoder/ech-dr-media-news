@@ -2,7 +2,7 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
- 
+
 .echPlg_wrap {
   margin: 20px;
   padding: 10px;
@@ -81,8 +81,6 @@
   color: #043c00;
 }
 
-
-
 .api_info_container {
   margin: 30px 0px;
 }
@@ -105,7 +103,34 @@
   width: 24%;
 }
 
+.setting-preview-container {
+  display: flex;
+  align-items: center;
+}
 
+.news-card {
+  border: 1px solid #000;
+}
+
+.news-card .featured-image {
+  display: flex;
+  height: 100px;
+}
+
+.news-card .featured-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-card .featured-image img.default-logo {
+  padding: 4%;
+  object-fit: contain;
+}
+
+.news-card .news-info {
+  padding: 4%;
+}
 
 /****** COPY SHORTCODE *****/
 .plg_intro p {

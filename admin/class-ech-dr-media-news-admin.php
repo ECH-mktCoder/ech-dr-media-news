@@ -138,6 +138,9 @@ class Ech_Dr_Media_News_Admin
         register_setting('dmm_gen_settings', 'ech_dmn_enable_dr_filter');
         register_setting('dmm_gen_settings', 'ech_dmn_enable_spec_filter');
         register_setting('dmm_gen_settings', 'ech_dmn_enable_brand_filter');
+        register_setting('dmm_gen_settings', 'ech_dmn_display_dr_tag');
+        register_setting('dmm_gen_settings', 'ech_dmn_display_spec_tag');
+        register_setting('dmm_gen_settings', 'ech_dmn_display_brand_tag');
         register_setting('dmm_gen_settings', 'ech_news_dr_filter');
         register_setting('dmm_gen_settings', 'ech_news_spec_filter');
         register_setting('dmm_gen_settings', 'ech_news_brand_filter');

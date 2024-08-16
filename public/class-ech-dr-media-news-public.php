@@ -214,8 +214,10 @@ class Ech_Dr_Media_News_Public
         $dr_category_name = [];
         $brand_category_id = [];
         $brand_category_name = [];
-		$featured_image = ($post['featured_image']['has_featured_image']) ? $post['featured_image']['url'] : get_option('ech_dmn_default_post_featured_img');
-				
+        $featured_image = ($post['featured_image']['has_featured_image']) ? $post['featured_image']['url'] : get_option('ech_dmn_default_post_featured_img');
+        $display_spec_tag = get_option('ech_dmn_display_spec_tag') ? 0 : 1;
+        $display_dr_tag = get_option('ech_dmn_display_dr_tag') ? 0 : 1;
+        $display_brand_tag = get_option('ech_dmn_display_brand_tag') ? 0 : 1;
         foreach ($post['spec_category'] as $spec) {
             array_push($spec_category_id, $spec['id']);
             array_push($spec_category_name, $this->ECHD_echolang([$spec['name_en'],$spec['name_zh'],$spec['name_sc']]));
@@ -228,15 +230,22 @@ class Ech_Dr_Media_News_Public
             array_push($brand_category_id, $brand['id']);
             array_push($brand_category_name, $this->ECHD_echolang([$brand['name_en'],$brand['name_zh'],$brand['name_sc']]));
         }
+
         $html .= '<div class="news-card" data-news="' . $post['id'] . '" data-specialties="' . implode(',', $spec_category_id) . '" data-dr="' . implode(',', $dr_category_id) . '" data-brand="' . implode(',', $brand_category_id) . '">';
-				$html .= '<div class="featured-image">';
+        $html .= '<div class="featured-image">';
         $html .= '<img class="' . ($post['featured_image']['has_featured_image'] ? '' : 'default-logo') . '" src="' . $featured_image . '" alt="' . $post['featured_image']['alt_text'] . '">';
-				$html .= '</div>';
+        $html .= '</div>';
         $html .= '<div class="news-info">';
         $html .= '<div class="news-title"><a href="' . site_url() . '/dr-media-news/news-content/?postid=' . $post['id'] . '"><h1>' . $this->ECHD_echolang([$post['acf']['title_en'],$post['acf']['title_zh'],$post['acf']['title_sc']]) . '</h1></a></div>';
-        $html .= '<h4 class="news-specialty"><i aria-hidden="true" class="fas fa-tags"></i> ' . implode(' ', $spec_category_name) . '</h4>';
-        $html .= '<h4 class="news-doctor"><i aria-hidden="true" class="fas fa-user-tag"></i> ' . implode(' ', $dr_category_name) . '</h4>';
-        $html .= '<h4 class="news-brand"><i aria-hidden="true" class="fas fa-building"></i> ' . implode(' ', $brand_category_name) . '</h4>';
+        if($display_spec_tag) {
+            $html .= '<h4 class="news-specialty"><i aria-hidden="true" class="fas fa-tags"></i> ' . implode(' ', $spec_category_name) . '</h4>';
+        }
+        if($display_dr_tag) {
+            $html .= '<h4 class="news-doctor"><i aria-hidden="true" class="fas fa-user-tag"></i> ' . implode(' ', $dr_category_name) . '</h4>';
+        }
+        if($display_brand_tag) {
+            $html .= '<h4 class="news-brand"><i aria-hidden="true" class="fas fa-building"></i> ' . implode(' ', $brand_category_name) . '</h4>';
+        }
         $html .= '<a href="' . site_url() . '/dr-media-news/news-content/?postid=' . $post['id'] . '">' . $this->ECHD_echolang(['Read More','閱讀更多','阅读更多']) . '</a>';
         $html .= '</div>';
         $html .= '</div>';

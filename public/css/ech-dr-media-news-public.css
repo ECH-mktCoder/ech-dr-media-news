@@ -109,7 +109,8 @@
 }
 
 .ech-dmn-news-container .news-card .news-specialty,
-.ech-dmn-news-container .news-card .news-doctor {
+.ech-dmn-news-container .news-card .news-doctor,
+.ech-dmn-news-container .news-card .news-brand {
   margin-bottom: 5px !important;
   font-size: 16px !important;
   color: #3e3e3e !important;
@@ -215,9 +216,10 @@
   text-decoration: none !important;
 }
 
-.news-content-container{
+.news-content-container {
   padding-top: 4%;
 }
+
 .news-content-container iframe {
   width: 100%;
   height: 100%;
@@ -266,9 +268,10 @@
 
 
 @media(max-width:767px) {
-  .ech-dmn-single-news-container .post-info>ul{
+  .ech-dmn-single-news-container .post-info>ul {
     order: 2;
   }
+
   .news-content-container .post-content h1 {
     font-size: 28px;
   }

@@ -16,21 +16,21 @@
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 <?php
     $plugin_info = new Ech_Dr_Media_News();
-    $ADMIN_ECHD_func = new Ech_Dr_Media_News_Admin($plugin_info->get_plugin_name(), $plugin_info->get_version());
-    $access_token = (get_option('ech_dmn_access_token')) ? get_option('ech_dmn_access_token') : '';
-    $drID_full_api = $ADMIN_ECHD_func->ADMIN_ECHD_gen_doctor_api_link();
-    $drID_get_json = $ADMIN_ECHD_func->ADMIN_ECHD_wp_remote_get_news_json($drID_full_api);
-    $drID_json_arr = json_decode($drID_get_json, true);
-    $specID_full_api = $ADMIN_ECHD_func->ADMIN_ECHD_gen_specialty_api_link();
-    $specID_get_json = $ADMIN_ECHD_func->ADMIN_ECHD_wp_remote_get_news_json($specID_full_api);
-    $specID_json_arr = json_decode($specID_get_json, true);
-    $brandID_full_api = $ADMIN_ECHD_func->ADMIN_ECHD_gen_brand_api_link();
-    $brandID_get_json = $ADMIN_ECHD_func->ADMIN_ECHD_wp_remote_get_news_json($brandID_full_api);
-    $brandID_json_arr = json_decode($brandID_get_json, true);
-    $check_Token = true;
-    if(empty($access_token) || isset($drID_json_arr['code'])) {
-        $check_Token = false;
-    }
+$ADMIN_ECHD_func = new Ech_Dr_Media_News_Admin($plugin_info->get_plugin_name(), $plugin_info->get_version());
+$access_token = (get_option('ech_dmn_access_token')) ? get_option('ech_dmn_access_token') : '';
+$drID_full_api = $ADMIN_ECHD_func->ADMIN_ECHD_gen_doctor_api_link();
+$drID_get_json = $ADMIN_ECHD_func->ADMIN_ECHD_wp_remote_get_news_json($drID_full_api);
+$drID_json_arr = json_decode($drID_get_json, true);
+$specID_full_api = $ADMIN_ECHD_func->ADMIN_ECHD_gen_specialty_api_link();
+$specID_get_json = $ADMIN_ECHD_func->ADMIN_ECHD_wp_remote_get_news_json($specID_full_api);
+$specID_json_arr = json_decode($specID_get_json, true);
+$brandID_full_api = $ADMIN_ECHD_func->ADMIN_ECHD_gen_brand_api_link();
+$brandID_get_json = $ADMIN_ECHD_func->ADMIN_ECHD_wp_remote_get_news_json($brandID_full_api);
+$brandID_json_arr = json_decode($brandID_get_json, true);
+$check_Token = true;
+if(empty($access_token) || isset($drID_json_arr['code'])) {
+    $check_Token = false;
+}
 ?>
     <!-- *********** Custom styling *************** -->
     <?php if (!empty(get_option('ech_dmn_submitBtn_color')) || !empty(get_option('ech_dmn_submitBtn_hoverColor') || !empty(get_option('ech_dmn_submitBtn_text_color')) || !empty(get_option('ech_dmn_submitBtn_text_hoverColor')))) :?>
@@ -53,7 +53,7 @@
 <div class="echPlg_wrap">
     <h1>ECH DR Media News General Settings</h1>
     <div class="plg_intro">
-        <p> More shortcode attributes and guidelines, visit <a href="#" target="_blank">Github</a>. </p>
+        <p> More shortcode attributes and guidelines, visit <a href="https://github.com/ECH-mktCoder/ech-dr-media-news" target="_blank">Github</a>. </p>
         <div class="shtcode_container">
             <pre id="sample_shortcode">[ech_dr_media_news]</pre>
             <div id="copyMsg"></div>
@@ -65,8 +65,8 @@
         <form method="post" id="dmm_gen_settings_form">
             <?php
             settings_fields('dmm_gen_settings');
-            do_settings_sections('dmm_gen_settings');
-            ?>
+do_settings_sections('dmm_gen_settings');
+?>
             <h2>General</h2>
             <div class="form_row">
                 <?= !$check_Token ? '<h1 style="color:red;">請先輸入Access Token或有誤</h1>' : '';?>
@@ -79,40 +79,114 @@
                 <label>Post per page : </label>
                 <input type="number" name="ech_dr_media_news_ppp" id="ech_dr_media_news_ppp" pattern="[0-9]{1,}" value="<?=$getPPP?>">
             </div>
+
             <div class="form_row">
                 <?php $getFeaturedImg = get_option('ech_dmn_default_post_featured_img'); ?>
                 <label>Default post featured image : </label>
                 <input type="text" name="ech_dmn_default_post_featured_img" id="ech_dmn_default_post_featured_img" value="<?=$getFeaturedImg?>">
             </div>
+            <h2>Lead Form</h2>
             <div class="form_row">
                 <?php $getFormShortcode = get_option('ech_dmn_form_shortcode'); ?>
                 <label>Display Form on "Dr Media News Content page" (enter form or templete shortcode) : </label>
-                <textarea name="ech_dmn_form_shortcode" id="" cols="100" rows="5"><?=$getFormShortcode?></textarea>
+                <textarea name="ech_dmn_form_shortcode" id="" cols="50" rows="5"><?=$getFormShortcode?></textarea>
             </div>
-            <div class="form_row">
-                <?php $getDrFilterStatus = get_option('ech_dmn_enable_dr_filter'); ?>
-                <label>Display Doctor Filter on "Dr Media News" page : </label>
-                <select name="ech_dmn_enable_dr_filter" id="">
-                    <option value="0" <?= ($getDrFilterStatus == 0) ? 'selected' : '' ?>>Enable</option>
-                    <option value="1" <?= ($getDrFilterStatus == 1) ? 'selected' : '' ?>>Disable</option>
-                </select>
+            <h2>Display Tag</h2>
+            <div class="setting-preview-container">
+                <div>
+                    <div class="form_row">
+                        <?php $getDrTagStatus = get_option('ech_dmn_display_dr_tag'); ?>
+                        <label>Display Doctor Tag in News Info : </label>
+                        <select class="tag-select" name="ech_dmn_display_dr_tag" id="">
+                            <option value="0" <?= ($getDrTagStatus == 0) ? 'selected' : '' ?>>Enable</option>
+                            <option value="1" <?= ($getDrTagStatus == 1) ? 'selected' : '' ?>>Disable</option>
+                        </select>
+                    </div>
+                    <div class="form_row">
+                        <?php $getSpecTagStatus = get_option('ech_dmn_display_spec_tag'); ?>
+                        <label>Display Specialty Tag in News Info : </label>
+                        <select class="tag-select" name="ech_dmn_display_spec_tag" id="">
+                            <option value="0" <?= ($getSpecTagStatus == 0) ? 'selected' : '' ?>>Enable</option>
+                            <option value="1" <?= ($getSpecTagStatus == 1) ? 'selected' : '' ?>>Disable</option>
+                        </select>
+                    </div>
+                    <div class="form_row">
+                        <?php $getBrandTagStatus = get_option('ech_dmn_display_brand_tag'); ?>
+                        <label>Display Brand Tag in News Info : </label>
+                        <select class="tag-select" name="ech_dmn_display_brand_tag" id="">
+                            <option value="0" <?= ($getBrandTagStatus == 0) ? 'selected' : '' ?>>Enable</option>
+                            <option value="1" <?= ($getBrandTagStatus == 1) ? 'selected' : '' ?>>Disable</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form_row tag-preview-container">
+                    <h3>Preview News Card</h3>
+                    <div class="news-card">
+                        <div class="featured-image"><img src="<?=$getFeaturedImg?>"></div>
+                        <div class="news-info">
+                            <div class="news-title">
+                                <h3>News Title</h3>
+                            </div>
+                            <h4 style="<?= ($getDrTagStatus == 0) ? '' : 'display:none' ?>"><i aria-hidden="true" class="fas fa-tags"></i> 專科</h4>
+                            <h4 style="<?= ($getSpecTagStatus == 0) ? '' : 'display:none' ?>"><i aria-hidden="true" class="fas fa-user-tag"></i> 醫生</h4>
+                            <h4 style="<?= ($getBrandTagStatus == 0) ? '' : 'display:none' ?>"><i aria-hidden="true" class="fas fa-building"></i>品牌</h4>
+                            <a href="">閱讀更多</a>
+                        </div>
+                    </div>
+                
+                </div>
             </div>
-            <div class="form_row">
-                <?php $getSpecFilterStatus = get_option('ech_dmn_enable_spec_filter'); ?>
-                <label>Display Specialty Filter on "Dr Media News" page : </label>
-                <select name="ech_dmn_enable_spec_filter" id="">
-                    <option value="0" <?= ($getSpecFilterStatus == 0) ? 'selected' : '' ?>>Enable</option>
-                    <option value="1" <?= ($getSpecFilterStatus == 1) ? 'selected' : '' ?>>Disable</option>
-                </select>
+            <h2>Display Filter</h2>
+            <div class="setting-preview-container">
+                <div>
+                    <div class="form_row">
+                        <?php $getDrFilterStatus = get_option('ech_dmn_enable_dr_filter'); ?>
+                        <label>Display Doctor Filter on "Dr Media News" page : </label>
+                        <select class="filter-select" name="ech_dmn_enable_dr_filter" id="">
+                            <option value="0" <?= ($getDrFilterStatus == 0) ? 'selected' : '' ?>>Enable</option>
+                            <option value="1" <?= ($getDrFilterStatus == 1) ? 'selected' : '' ?>>Disable</option>
+                        </select>
+                    </div>
+                    <div class="form_row">
+                        <?php $getSpecFilterStatus = get_option('ech_dmn_enable_spec_filter'); ?>
+                        <label>Display Specialty Filter on "Dr Media News" page : </label>
+                        <select class="filter-select" name="ech_dmn_enable_spec_filter" id="">
+                            <option value="0" <?= ($getSpecFilterStatus == 0) ? 'selected' : '' ?>>Enable</option>
+                            <option value="1" <?= ($getSpecFilterStatus == 1) ? 'selected' : '' ?>>Disable</option>
+                        </select>
+                    </div>
+                    <div class="form_row">
+                        <?php $getBrandFilterStatus = get_option('ech_dmn_enable_brand_filter'); ?>
+                        <label>Display Brand Filter on "Dr Media News" page : </label>
+                        <select class="filter-select" name="ech_dmn_enable_brand_filter" id="">
+                            <option value="0" <?= ($getBrandFilterStatus == 0) ? 'selected' : '' ?>>Enable</option>
+                            <option value="1" <?= ($getBrandFilterStatus == 1) ? 'selected' : '' ?>>Disable</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form_row filter-preview-container">
+                    <h3>Preview Filter</h3>
+                    <div style="<?= ($getDrFilterStatus == 0) ? '' : 'display:none' ?>">
+                        <h4>醫生</h4>
+                        <label for="previewDr">
+                            <input type="checkbox" name="" id="previewDr">doctor
+                        </label>
+                    </div>
+                    <div style="<?= ($getSpecFilterStatus == 0) ? '' : 'display:none' ?>">
+                        <h4>專科</h4>
+                        <label for="previewSpec">
+                            <input type="checkbox" name="" id="previewSpec">Specialist
+                        </label>
+                    </div>
+                    <div style="<?= ($getBrandFilterStatus == 0) ? '' : 'display:none' ?>">
+                        <h4>品牌</h4>
+                        <label for="previewBrand">
+                            <input type="checkbox" name="" id="previewBrand">Brand
+                        </label>
+                    </div>
+                </div>
             </div>
-            <div class="form_row">
-                <?php $getBrandFilterStatus = get_option('ech_dmn_enable_brand_filter'); ?>
-                <label>Display Brand Filter on "Dr Media News" page : </label>
-                <select name="ech_dmn_enable_brand_filter" id="">
-                    <option value="0" <?= ($getBrandFilterStatus == 0) ? 'selected' : '' ?>>Enable</option>
-                    <option value="1" <?= ($getBrandFilterStatus == 1) ? 'selected' : '' ?>>Disable</option>
-                </select>
-            </div>
+            <h2>Specific Filter Settings</h2>
             <div class="form_row api_info_container">
                 <p>Filter Doctor IDs</p>
                 <div class="info_list">
@@ -165,7 +239,7 @@
                 <input type="text" name="ech_news_brand_filter" id="" pattern="[0-9,]{1,}" value="<?=$getFilteredBrand;?>">
             </div>
 
-            <h3>Button Style</h3>
+            <h2>Button Style</h2>
             <div class="form_row">
                 <label>Button Color (HEX code only): </label>
                 <input type="text" name="ech_dmn_submitBtn_color" value="<?= htmlspecialchars(get_option('ech_dmn_submitBtn_color'))?>" id="" pattern="^(#)[A-Za-z0-9]{3,6}" id="ech_dmn_submitBtn_color">

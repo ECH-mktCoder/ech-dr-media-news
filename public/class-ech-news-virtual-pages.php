@@ -81,10 +81,15 @@ class Ech_News_Virtual_Pages extends Ech_Dr_Media_News_Public
             $post_content = parent::ECHD_echolang([$post['acf']['news_content_en'], $post['acf']['news_content_zh'], $post['acf']['news_content_sc']]);
             $meta_description = parent::ECHD_echolang([$post['acf']['meta_description_en'], $post['acf']['meta_description_zh'], $post['acf']['meta_description_sc']]);
             $formTemplete = get_option('ech_dmn_form_shortcode');
+            $display_spec_tag = get_option('ech_dmn_display_spec_tag') ? 0 : 1;
+            $display_dr_tag = get_option('ech_dmn_display_dr_tag') ? 0 : 1;
+            $display_brand_tag = get_option('ech_dmn_display_brand_tag') ? 0 : 1;
             $spec_category_id = [];
             $spec_category_name = [];
             $dr_category_id = [];
             $dr_category_name = [];
+            $brand_category_id = [];
+            $brand_category_name = [];
             foreach ($post['spec_category'] as $spec) {
                 array_push($spec_category_id, $spec['id']);
                 array_push($spec_category_name, parent::ECHD_echolang([$spec['name_en'],$spec['name_zh'],$spec['name_sc']]));
@@ -92,6 +97,10 @@ class Ech_News_Virtual_Pages extends Ech_Dr_Media_News_Public
             foreach ($post['dr_category'] as $dr) {
                 array_push($dr_category_id, $dr['id']);
                 array_push($dr_category_name, parent::ECHD_echolang([$dr['name_en'],$dr['name_zh'],$dr['name_sc']]));
+            }
+            foreach ($post['brand_category'] as $brand) {
+                array_push($brand_category_id, $brand['id']);
+                array_push($brand_category_name, parent::ECHD_echolang([$brand['name_en'],$brand['name_zh'],$brand['name_sc']]));
             }
 
             $html = '';
@@ -112,7 +121,7 @@ class Ech_News_Virtual_Pages extends Ech_Dr_Media_News_Public
                 $html .= '</style>';
             }
             // *********** (END) Custom styling ****************/
-            $html .= '<div class="ech-dmn-single-news-container" data-news="' . $post['id'] . '" data-specialties="' . implode(',', $spec_category_id) . '" data-dr="' . implode(',', $dr_category_id) . '">';
+            $html .= '<div class="ech-dmn-single-news-container" data-news="' . $post['id'] . '" data-specialties="' . implode(',', $spec_category_id) . '" data-dr="' . implode(',', $dr_category_id) . '" data-brand="' . implode(',', $brand_category_id) . '">';
             $html .= '<div class="news-heading-title">';
             $html .= '<h1>' . $post_title . '</h1>';
             $html .= '</div>'; //.news-heading-title
@@ -121,9 +130,16 @@ class Ech_News_Virtual_Pages extends Ech_Dr_Media_News_Public
             $html .= '<div class="post-info">';
             $html .= '<ul>';
             $html .= '<li class="post-date"><i aria-hidden="true" class="fas fa-calendar"></i> ' . date('d m月, Y', strtotime($post['published_date'])) . '</li>';
-            $html .= '<li class="post-specialty"><i aria-hidden="true" class="fas fa-tags"></i> ' . implode(',', $spec_category_name) . '</li>';
-            $html .= '<li class="post-doctor"><i aria-hidden="true" class="fas fa-user-tag"></i> ' . implode(' ', $dr_category_name) . '</li>';
-            $html .= '</ul>'; 
+            if($display_spec_tag) {
+                $html .= '<li class="post-specialty"><i aria-hidden="true" class="fas fa-tags"></i> ' . implode(',', $spec_category_name) . '</li>';
+            }
+            if($display_dr_tag) {
+                $html .= '<li class="post-doctor"><i aria-hidden="true" class="fas fa-user-tag"></i> ' . implode(' ', $dr_category_name) . '</li>';
+            }
+            if($display_brand_tag) {
+                $html .= '<li class="post-brand"><i aria-hidden="true" class="fas fa-building"></i> ' . implode(' ', $brand_category_name) . '</li>';
+            }
+            $html .= '</ul>';
 
             $html .= '<div class="back-to-news-list">';
             $html .= '<a href="' . site_url() . '/dr-media-news/"> < ' . parent::ECHD_echolang(['Back to Doctor News', '返回媒體訪問', '返回媒体访问']) . '</a>';

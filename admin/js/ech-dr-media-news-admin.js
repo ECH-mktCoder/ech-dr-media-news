@@ -1,4 +1,4 @@
-(function( $ ) {
+(function ($) {
 	'use strict';
 
 	/**
@@ -29,11 +29,11 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-	$(function(){
+	$(function () {
 
 
 		/************* GENERAL FORM **************/
-		$('#dmm_gen_settings_form').on('submit', function(e){
+		$('#dmm_gen_settings_form').on('submit', function (e) {
 			e.preventDefault();
 
 			$('.statusMsg').removeClass('error');
@@ -43,14 +43,14 @@
 
 			let statusMsg = '';
 			let validStatus = false;
-			if ( ppp == '') {
+			if (ppp == '') {
 				validStatus = false;
 				statusMsg += 'Post per page cannot be empty<br>';
 			} else {
 				validStatus = true;
 			}
 			// set error status msg
-			if ( !validStatus ) {
+			if (!validStatus) {
 				$('.statusMsg').html(statusMsg);
 				$('.statusMsg').addClass('error');
 				return;
@@ -66,28 +66,40 @@
 		/************* (END) GENERAL FORM **************/
 
 		/************* COPY SAMPLE SHORTCODE **************/
-		$('#copyShortcode').click(function(){
+		$('#copyShortcode').click(function () {
 			const shortcode = $('#sample_shortcode').text();
 			const tempInput = $('<input>');
 			$('body').append(tempInput);
 			tempInput.val(shortcode).select();
 			try {
-					const successful = document.execCommand('copy');
-					if (successful) {
-							$('#copyShortcode').html('Copied !');
-					} else {
-							$('#copyMsg').html('Copying failed, try again...');
-					}
+				const successful = document.execCommand('copy');
+				if (successful) {
+					$('#copyShortcode').html('Copied !');
+				} else {
+					$('#copyMsg').html('Copying failed, try again...');
+				}
 			} catch (err) {
-					$('#copyMsg').html('Unable to copy, please try manually.');
+				$('#copyMsg').html('Unable to copy, please try manually.');
 			}
 			tempInput.remove();
-			setTimeout(function(){
-					$('#copyShortcode').html('Copy Shortcode');
+			setTimeout(function () {
+				$('#copyShortcode').html('Copy Shortcode');
 			}, 3000);
 		});
 		/************* (END)COPY SAMPLE SHORTCODE **************/
 
+		$('.filter-select').on('change', function () {
+			let filterIndex = $(this).closest('.form_row').index();
+			let show = $(this).val();
+			$('.filter-preview-container>div:eq(' + filterIndex + ')').toggle(show);
+		});
+
+		$('.tag-select').on('change', function () {
+			let tagIndex = $(this).closest('.form_row').index();
+			let show = $(this).val();
+			$('.tag-preview-container h4:eq(' + tagIndex + ')').toggle(show);
+		});
+
 	}); // doc ready
 
-})( jQuery );
+})(jQuery);

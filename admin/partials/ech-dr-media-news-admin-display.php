@@ -95,25 +95,27 @@ do_settings_sections('dmm_gen_settings');
             <div class="setting-preview-container">
                 <div>
                     <div class="form_row">
-                        <?php $getDrTagStatus = get_option('ech_dmn_display_dr_tag'); ?>
-                        <label>Display Doctor Tag in News Info : </label>
-                        <select class="tag-select" name="ech_dmn_display_dr_tag" id="">
-                            <option value="0" <?= ($getDrTagStatus == 0) ? 'selected' : '' ?>>Enable</option>
-                            <option value="1" <?= ($getDrTagStatus == 1) ? 'selected' : '' ?>>Disable</option>
-                        </select>
-                    </div>
-                    <div class="form_row">
                         <?php $getSpecTagStatus = get_option('ech_dmn_display_spec_tag'); ?>
-                        <label>Display Specialty Tag in News Info : </label>
-                        <select class="tag-select" name="ech_dmn_display_spec_tag" id="">
+                        <label>Display <b>Specialty</b> Tag in News Info : </label>
+                        <select class="tag-select" name="ech_dmn_display_spec_tag" id="" data-tag="spec">
                             <option value="0" <?= ($getSpecTagStatus == 0) ? 'selected' : '' ?>>Enable</option>
                             <option value="1" <?= ($getSpecTagStatus == 1) ? 'selected' : '' ?>>Disable</option>
                         </select>
                     </div>
+
+                    <div class="form_row">
+                        <?php $getDrTagStatus = get_option('ech_dmn_display_dr_tag'); ?>
+                        <label>Display <b>Doctor</b> Tag in News Info : </label>
+                        <select class="tag-select" name="ech_dmn_display_dr_tag" id="" data-tag="dr">
+                            <option value="0" <?= ($getDrTagStatus == 0) ? 'selected' : '' ?>>Enable</option>
+                            <option value="1" <?= ($getDrTagStatus == 1) ? 'selected' : '' ?>>Disable</option>
+                        </select>
+                    </div>
+                    
                     <div class="form_row">
                         <?php $getBrandTagStatus = get_option('ech_dmn_display_brand_tag'); ?>
-                        <label>Display Brand Tag in News Info : </label>
-                        <select class="tag-select" name="ech_dmn_display_brand_tag" id="">
+                        <label>Display <b>Brand</b> Tag in News Info : </label>
+                        <select class="tag-select" name="ech_dmn_display_brand_tag" id="" data-tag="brand">
                             <option value="0" <?= ($getBrandTagStatus == 0) ? 'selected' : '' ?>>Enable</option>
                             <option value="1" <?= ($getBrandTagStatus == 1) ? 'selected' : '' ?>>Disable</option>
                         </select>
@@ -127,9 +129,9 @@ do_settings_sections('dmm_gen_settings');
                             <div class="news-title">
                                 <h3>News Title</h3>
                             </div>
-                            <h4 style="<?= ($getDrTagStatus == 0) ? '' : 'display:none' ?>"><i aria-hidden="true" class="fas fa-tags"></i> 專科</h4>
-                            <h4 style="<?= ($getSpecTagStatus == 0) ? '' : 'display:none' ?>"><i aria-hidden="true" class="fas fa-user-tag"></i> 醫生</h4>
-                            <h4 style="<?= ($getBrandTagStatus == 0) ? '' : 'display:none' ?>"><i aria-hidden="true" class="fas fa-building"></i>品牌</h4>
+                            <h4 style="<?= ($getSpecTagStatus == 0) ? '' : 'display:none' ?>" data-tag="spec">專科</h4>
+                            <h4 style="<?= ($getDrTagStatus == 0) ? '' : 'display:none' ?>" data-tag="dr">醫生</h4>
+                            <h4 style="<?= ($getBrandTagStatus == 0) ? '' : 'display:none' ?>" data-tag="brand">品牌</h4>
                             <a href="">閱讀更多</a>
                         </div>
                     </div>
@@ -141,24 +143,24 @@ do_settings_sections('dmm_gen_settings');
                 <div>
                     <div class="form_row">
                         <?php $getDrFilterStatus = get_option('ech_dmn_enable_dr_filter'); ?>
-                        <label>Display Doctor Filter on "Dr Media News" page : </label>
-                        <select class="filter-select" name="ech_dmn_enable_dr_filter" id="">
+                        <label>Display <b>Doctor</b> Filter on "Dr Media News" page : </label>
+                        <select class="filter-select" name="ech_dmn_enable_dr_filter" id="" data-filter="dr">
                             <option value="0" <?= ($getDrFilterStatus == 0) ? 'selected' : '' ?>>Enable</option>
                             <option value="1" <?= ($getDrFilterStatus == 1) ? 'selected' : '' ?>>Disable</option>
                         </select>
                     </div>
                     <div class="form_row">
                         <?php $getSpecFilterStatus = get_option('ech_dmn_enable_spec_filter'); ?>
-                        <label>Display Specialty Filter on "Dr Media News" page : </label>
-                        <select class="filter-select" name="ech_dmn_enable_spec_filter" id="">
+                        <label>Display <b>Specialty</b> Filter on "Dr Media News" page : </label>
+                        <select class="filter-select" name="ech_dmn_enable_spec_filter" id="" data-filter="spec">
                             <option value="0" <?= ($getSpecFilterStatus == 0) ? 'selected' : '' ?>>Enable</option>
                             <option value="1" <?= ($getSpecFilterStatus == 1) ? 'selected' : '' ?>>Disable</option>
                         </select>
                     </div>
                     <div class="form_row">
                         <?php $getBrandFilterStatus = get_option('ech_dmn_enable_brand_filter'); ?>
-                        <label>Display Brand Filter on "Dr Media News" page : </label>
-                        <select class="filter-select" name="ech_dmn_enable_brand_filter" id="">
+                        <label>Display <b>Brand</b> Filter on "Dr Media News" page : </label>
+                        <select class="filter-select" name="ech_dmn_enable_brand_filter" id="" data-filter="brand">
                             <option value="0" <?= ($getBrandFilterStatus == 0) ? 'selected' : '' ?>>Enable</option>
                             <option value="1" <?= ($getBrandFilterStatus == 1) ? 'selected' : '' ?>>Disable</option>
                         </select>
@@ -166,19 +168,19 @@ do_settings_sections('dmm_gen_settings');
                 </div>
                 <div class="form_row filter-preview-container">
                     <h3>Preview Filter</h3>
-                    <div style="<?= ($getDrFilterStatus == 0) ? '' : 'display:none' ?>">
+                    <div style="<?= ($getDrFilterStatus == 0) ? '' : 'display:none' ?>"  data-filter="dr">
                         <h4>醫生</h4>
                         <label for="previewDr">
                             <input type="checkbox" name="" id="previewDr">doctor
                         </label>
                     </div>
-                    <div style="<?= ($getSpecFilterStatus == 0) ? '' : 'display:none' ?>">
+                    <div style="<?= ($getSpecFilterStatus == 0) ? '' : 'display:none' ?>" data-filter="spec">
                         <h4>專科</h4>
                         <label for="previewSpec">
                             <input type="checkbox" name="" id="previewSpec">Specialist
                         </label>
                     </div>
-                    <div style="<?= ($getBrandFilterStatus == 0) ? '' : 'display:none' ?>">
+                    <div style="<?= ($getBrandFilterStatus == 0) ? '' : 'display:none' ?>" data-filter="brand">
                         <h4>品牌</h4>
                         <label for="previewBrand">
                             <input type="checkbox" name="" id="previewBrand">Brand

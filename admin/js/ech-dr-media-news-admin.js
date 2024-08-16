@@ -89,15 +89,15 @@
 		/************* (END)COPY SAMPLE SHORTCODE **************/
 
 		$('.filter-select').on('change', function () {
-			let filterIndex = $(this).closest('.form_row').index();
+			let filter = $(this).data('filter');
 			let show = $(this).val();
-			$('.filter-preview-container>div:eq(' + filterIndex + ')').toggle(show);
+			$('.filter-preview-container div[data-filter="' + filter + '"').toggle(show);
 		});
 
 		$('.tag-select').on('change', function () {
-			let tagIndex = $(this).closest('.form_row').index();
+			let tag = $(this).data('tag');
 			let show = $(this).val();
-			$('.tag-preview-container h4:eq(' + tagIndex + ')').toggle(show);
+			$('.tag-preview-container h4[data-tag="' + tag + '"').toggle(show);
 		});
 
 	}); // doc ready

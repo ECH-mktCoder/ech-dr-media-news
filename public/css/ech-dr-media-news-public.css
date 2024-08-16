@@ -92,6 +92,13 @@
 
 .ech-dmn-news-container .news-card .news-title {
   margin-bottom: 10px;
+}
+
+.ech-dmn-news-container .news-card .news-title h1{
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -235,7 +242,7 @@
 
 .news-content-container .post-content h2 {
   margin-bottom: 10px;
-  font-size: 28px
+  font-size: 28px;
 }
 
 .news-content-container .post-content h3 {

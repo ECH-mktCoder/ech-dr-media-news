@@ -109,13 +109,13 @@ class Ech_News_Virtual_Pages extends Ech_Dr_Media_News_Public
                 $html .= '<style>';
 
                 $html .= '.back-to-news-list-btn > a { ';
-                (!empty(get_option('ech_dmn_submitBtn_color'))) ? $html .= 'background:' . get_option('ech_dmn_submitBtn_color') . ';' : '';
-                (!empty(get_option('ech_dmn_submitBtn_text_color'))) ? $html .= 'color:' . get_option('ech_dmn_submitBtn_text_color') . ';' : '';
+                (!empty(get_option('ech_dmn_submitBtn_color'))) ? $html .= 'background:' . get_option('ech_dmn_submitBtn_color') . ' !important;' : '';
+                (!empty(get_option('ech_dmn_submitBtn_text_color'))) ? $html .= 'color:' . get_option('ech_dmn_submitBtn_text_color') . ' !important;' : '';
                 $html .= '}';
 
                 $html .= '.back-to-news-list-btn > a:hover { ';
-                (!empty(get_option('ech_dmn_submitBtn_hoverColor'))) ? $html .= 'background:' . get_option('ech_dmn_submitBtn_hoverColor') . ';' : '';
-                (!empty(get_option('ech_dmn_submitBtn_text_hoverColor'))) ? $html .= 'color:' . get_option('ech_dmn_submitBtn_text_hoverColor') . ';' : '';
+                (!empty(get_option('ech_dmn_submitBtn_hoverColor'))) ? $html .= 'background:' . get_option('ech_dmn_submitBtn_hoverColor') . ' !important;' : '';
+                (!empty(get_option('ech_dmn_submitBtn_text_hoverColor'))) ? $html .= 'color:' . get_option('ech_dmn_submitBtn_text_hoverColor') . ' !important;' : '';
                 $html .= '}';
 
                 $html .= '</style>';
